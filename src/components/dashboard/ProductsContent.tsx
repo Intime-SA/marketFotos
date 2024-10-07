@@ -39,18 +39,18 @@ const productData = [
 ];
 
 const monthlyData = [
-  { month: "Jan", photos: 2500, videos: 150, albums: 20, subscriptions: 100 },
-  { month: "Feb", photos: 2700, videos: 180, albums: 25, subscriptions: 120 },
-  { month: "Mar", photos: 2900, videos: 200, albums: 30, subscriptions: 150 },
-  { month: "Apr", photos: 3100, videos: 220, albums: 28, subscriptions: 180 },
-  { month: "May", photos: 3300, videos: 240, albums: 35, subscriptions: 200 },
-  { month: "Jun", photos: 3500, videos: 260, albums: 40, subscriptions: 220 },
-  { month: "Jul", photos: 3700, videos: 280, albums: 45, subscriptions: 240 },
-  { month: "Aug", photos: 3900, videos: 300, albums: 50, subscriptions: 260 },
-  { month: "Sep", photos: 4100, videos: 320, albums: 55, subscriptions: 280 },
-  { month: "Oct", photos: 4300, videos: 340, albums: 60, subscriptions: 300 },
-  { month: "Nov", photos: 4500, videos: 360, albums: 65, subscriptions: 320 },
-  { month: "Dec", photos: 4700, videos: 380, albums: 70, subscriptions: 340 },
+  { month: "Jan", photos: 500, videos: 150, albums: 20, subscriptions: 100 },
+  { month: "Feb", photos: 700, videos: 180, albums: 25, subscriptions: 120 },
+  { month: "Mar", photos: 900, videos: 200, albums: 30, subscriptions: 150 },
+  { month: "Apr", photos: 100, videos: 220, albums: 28, subscriptions: 180 },
+  { month: "May", photos: 300, videos: 240, albums: 35, subscriptions: 200 },
+  { month: "Jun", photos: 500, videos: 260, albums: 40, subscriptions: 220 },
+  { month: "Jul", photos: 700, videos: 280, albums: 45, subscriptions: 240 },
+  { month: "Aug", photos: 900, videos: 300, albums: 50, subscriptions: 260 },
+  { month: "Sep", photos: 1100, videos: 320, albums: 55, subscriptions: 280 },
+  { month: "Oct", photos: 1300, videos: 340, albums: 60, subscriptions: 300 },
+  { month: "Nov", photos: 1500, videos: 360, albums: 65, subscriptions: 320 },
+  { month: "Dec", photos: 1700, videos: 380, albums: 70, subscriptions: 340 },
 ];
 
 export function ProductsContent() {
