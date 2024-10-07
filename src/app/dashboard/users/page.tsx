@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -136,50 +136,56 @@ export default function SuperAdminUsers() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 sm:p-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
         <h1 className="text-3xl font-bold">Users</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
               type="text"
               placeholder="Search users..."
-              className="pl-8 bg-white border-gray-200"
+              className="pl-8 bg-white border-gray-200 w-full"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Avatar>
+          <Avatar className="hidden sm:inline-flex">
             <AvatarImage src="/avatar.jpg" alt="Admin" />
             <AvatarFallback>AD</AvatarFallback>
           </Avatar>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* User Table */}
-        <Card>
+        <Card className="col-span-1 lg:col-span-2">
           <CardHeader>
             <CardTitle>Recent Users</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
+                  <TableHead className="hidden sm:table-cell">Email</TableHead>
                   <TableHead>Type</TableHead>
-                  <TableHead>Join Date</TableHead>
+                  <TableHead className="hidden sm:table-cell">
+                    Join Date
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {currentUsers.map((user) => (
                   <TableRow key={user.id}>
                     <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell>{user.email}</TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      {user.email}
+                    </TableCell>
                     <TableCell>{user.type}</TableCell>
-                    <TableCell>{user.joinDate}</TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      {user.joinDate}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -188,17 +194,19 @@ export default function SuperAdminUsers() {
               <Button
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
+                size="sm"
               >
-                <ChevronLeft className="h-4 w-4" />
-                Previous
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Previous</span>
               </Button>
-              <span>Page {currentPage}</span>
+              <span className="text-sm">Page {currentPage}</span>
               <Button
                 onClick={() => paginate(currentPage + 1)}
                 disabled={indexOfLastUser >= filteredUsers.length}
+                size="sm"
               >
-                Next
-                <ChevronRight className="h-4 w-4" />
+                <span className="hidden sm:inline">Next</span>
+                <ChevronRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
           </CardContent>
@@ -239,29 +247,29 @@ export default function SuperAdminUsers() {
             </div>
           </CardContent>
         </Card>
-      </div>
 
-      {/* User Growth Chart */}
-      <Card>
-        <CardHeader>
-          <CardTitle>User Growth</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[400px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={userGrowthData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="photographers" fill="#8884d8" />
-                <Bar dataKey="users" fill="#82ca9d" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+        {/* User Growth Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle>User Growth</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px] sm:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={userGrowthData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="photographers" fill="#8884d8" />
+                  <Bar dataKey="users" fill="#82ca9d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -55,23 +55,23 @@ const monthlyData = [
 
 export function ProductsContent() {
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 sm:p-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
         <h1 className="text-3xl font-bold">Products</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
               type="text"
               placeholder="Search products..."
-              className="pl-8 bg-white border-gray-200"
+              className="pl-8 bg-white border-gray-200 w-full"
             />
           </div>
-          <Button className="bg-purple-500 hover:bg-purple-600 text-white">
+          <Button className="bg-purple-500 hover:bg-purple-600 text-white w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             Add Product
           </Button>
-          <Avatar>
+          <Avatar className="hidden sm:inline-flex">
             <AvatarImage
               src="/placeholder.svg?height=32&width=32"
               alt="Admin"
@@ -86,33 +86,54 @@ export function ProductsContent() {
           <CardTitle>Product List</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Price/Commission</TableHead>
-                <TableHead>Last Month Sales</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {productData.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell className="font-medium">{product.name}</TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell>{product.sales}</TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="sm">
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className="w-full">
+            <div
+              className="sm:transform-none sm:w-full"
+              style={{
+                transform: "scale(0.9)",
+                transformOrigin: "left top",
+                width: "111.11%",
+              }}
+            >
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[40%] sm:w-[30%]">Name</TableHead>
+                    <TableHead className="w-[40%] sm:w-[25%]">
+                      Price/Commission
+                    </TableHead>
+                    <TableHead className="hidden sm:table-cell sm:w-[25%]">
+                      Last Month Sales
+                    </TableHead>
+                    <TableHead className="w-[20%]">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {productData.map((product) => (
+                    <TableRow key={product.id}>
+                      <TableCell className="font-medium">
+                        {product.name}
+                      </TableCell>
+                      <TableCell>{product.price}</TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        {product.sales}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex space-x-2">
+                          <Button variant="ghost" size="sm" className="p-1">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="sm" className="p-1">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

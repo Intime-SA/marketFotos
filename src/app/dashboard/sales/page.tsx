@@ -5,13 +5,10 @@ import {
   DollarSign,
   ShoppingCart,
   TrendingUp,
-  Search,
   Camera,
   UserPlus,
   Repeat,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AreaChart,
@@ -55,22 +52,8 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 export default function SuperAdminSales() {
   return (
     <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-8">
         <h1 className="text-3xl font-bold">Sales Dashboard</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search..."
-              className="pl-8 bg-white border-gray-200"
-            />
-          </div>
-          <Avatar>
-            <AvatarImage src="/avatar.jpg" alt="Admin" />
-            <AvatarFallback>AD</AvatarFallback>
-          </Avatar>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
@@ -211,7 +194,7 @@ export default function SuperAdminSales() {
             <CardTitle>Key Performance Indicators</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex items-center space-x-4">
                 <div className="p-2 bg-blue-100 rounded-full">
                   <Camera className="h-6 w-6 text-blue-600" />

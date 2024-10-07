@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   DollarSign,
@@ -5,6 +7,7 @@ import {
   Eye,
   RefreshCcw,
   ChevronRight,
+  Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,26 +79,26 @@ const transactionData = [
 
 export default function SuperAdminTransactions() {
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 sm:p-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
         <h1 className="text-3xl font-bold">Transactions</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+          <div className="relative w-full sm:w-auto">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Input
               type="text"
               placeholder="Search transactions..."
-              className="pl-8 bg-white border-gray-200"
+              className="pl-8 bg-white border-gray-200 w-full"
             />
           </div>
-          <Avatar>
+          <Avatar className="hidden sm:inline-flex">
             <AvatarImage src="/avatar.jpg" alt="Admin" />
             <AvatarFallback>AD</AvatarFallback>
           </Avatar>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Last 24 Hours</CardTitle>
@@ -132,16 +135,20 @@ export default function SuperAdminTransactions() {
         <CardHeader>
           <CardTitle>Recent Transactions</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>ID</TableHead>
+                <TableHead className="hidden sm:table-cell">ID</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>User</TableHead>
-                <TableHead>Photo/Video ID</TableHead>
-                <TableHead>Photographer</TableHead>
-                <TableHead>Location</TableHead>
+                <TableHead className="hidden sm:table-cell">
+                  Photo/Video ID
+                </TableHead>
+                <TableHead className="hidden sm:table-cell">
+                  Photographer
+                </TableHead>
+                <TableHead className="hidden sm:table-cell">Location</TableHead>
                 <TableHead>Total Amount</TableHead>
                 <TableHead>Payment Status</TableHead>
                 <TableHead>Actions</TableHead>
@@ -150,7 +157,7 @@ export default function SuperAdminTransactions() {
             <TableBody>
               {transactionData.map((transaction) => (
                 <TableRow key={transaction.id}>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium hidden sm:table-cell">
                     {transaction.id}
                   </TableCell>
                   <TableCell>{transaction.date}</TableCell>
@@ -165,7 +172,7 @@ export default function SuperAdminTransactions() {
                       <ChevronRight className="h-4 w-4 ml-1" />
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Link
                       href={`/content/${transaction.contentId}`}
                       className="text-blue-600 hover:underline flex items-center"
@@ -174,7 +181,7 @@ export default function SuperAdminTransactions() {
                       <ChevronRight className="h-4 w-4 ml-1" />
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Link
                       href={`/photographers/${transaction.photographer
                         .toLowerCase()
@@ -185,7 +192,9 @@ export default function SuperAdminTransactions() {
                       <ChevronRight className="h-4 w-4 ml-1" />
                     </Link>
                   </TableCell>
-                  <TableCell>{transaction.location}</TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    {transaction.location}
+                  </TableCell>
                   <TableCell className="font-bold">
                     ${transaction.amount.toFixed(2)}
                   </TableCell>
@@ -206,12 +215,21 @@ export default function SuperAdminTransactions() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="sm" className="mr-2">
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm">
-                      <RefreshCcw className="h-4 w-4" />
-                    </Button>
+                    <div className="flex space-x-2">
+                      <Button variant="ghost" size="sm" className="p-0">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="p-0">
+                        <RefreshCcw className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-0 sm:hidden"
+                      >
+                        <Menu className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

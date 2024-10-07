@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   BarChart,
@@ -45,10 +42,10 @@ const photographerReturnData = [
 ];
 
 const topLocationData = [
-  { name: "Bells Beach, Victoria", value: 450 },
-  { name: "Byron Bay, New South Wales", value: 380 },
-  { name: "Gold Coast, Queensland", value: 320 },
-  { name: "Margaret River, Western Australia", value: 280 },
+  { name: "Bells Beach", value: 450 },
+  { name: "Byron Bay", value: 380 },
+  { name: "Gold Coast", value: 320 },
+  { name: "Margaret R.", value: 280 },
   { name: "Otras", value: 970 },
 ];
 
@@ -56,26 +53,12 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
 export default function SuperAdminStatistics() {
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 sm:p-8">
+      <div className="mb-8">
         <h1 className="text-3xl font-bold">Statistics</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search..."
-              className="pl-8 bg-white border-gray-200"
-            />
-          </div>
-          <Avatar>
-            <AvatarImage src="/avatar.jpg" alt="Admin" />
-            <AvatarFallback>AD</AvatarFallback>
-          </Avatar>
-        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Conversion Rate */}
         <Card>
           <CardHeader>
@@ -191,16 +174,16 @@ export default function SuperAdminStatistics() {
         </Card>
 
         {/* Photographer Return Rate and Top Locations */}
-        <Card className="col-span-2">
+        <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>
               Tasa de Retorno de Fotógrafos y Top Localidades
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex">
+            <div className="flex flex-col lg:flex-row">
               {/* Photographer Return Rate */}
-              <div className="w-[30%] h-[400px]">
+              <div className="w-full lg:w-[30%] h-[300px] lg:h-[400px] mb-8 lg:mb-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -228,31 +211,23 @@ export default function SuperAdminStatistics() {
                 </ResponsiveContainer>
               </div>
 
-              {/* Top Locations */}
-              <div className="w-[70%] h-[400px]">
+              <div className="w-full lg:w-[70%] h-[300px] lg:h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={topLocationData}
-                    layout="vertical"
-                    margin={{ left: 150 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
+                  <BarChart data={topLocationData} layout="vertical">
                     <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" width={150} />
-                    <Tooltip />
-                    <Legend />
+                    <YAxis dataKey="name" type="category" />
                     <Bar dataKey="value" fill="#8884d8" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="flex mt-4">
-              <p className="text-sm text-gray-600 w-[30%] pr-4">
+            <div className="flex flex-col lg:flex-row mt-4">
+              <p className="text-sm text-gray-600 w-full lg:w-[30%] lg:pr-4 mb-4 lg:mb-0">
                 El 46.7% de los fotógrafos activos suben nuevas fotos
                 regularmente, indicando una buena retención y actividad dentro
                 de la plataforma.
               </p>
-              <p className="text-sm text-gray-600 w-[70%] pl-4">
+              <p className="text-sm text-gray-600 w-full lg:w-[70%] lg:pl-4">
                 Las playas más populares para el surf en Australia dominan las
                 compras, con Bells Beach liderando las ventas.
               </p>
