@@ -152,7 +152,7 @@ export default function DashboardLayout({
                     <Menu className="h-6 w-6" />
                   </button>
                   <h1 className="text-2xl font-semibold text-gray-900">
-                    GOwave Admin
+                    GOwave
                   </h1>
                 </div>
               </div>
