@@ -33,9 +33,9 @@ const productData = [
     price: "$19.99/month",
     sales: 170,
   },
-  { id: 2, name: "Photo Sales Commission", price: "15%", sales: 3000 },
-  { id: 3, name: "Video Sales Commission", price: "20%", sales: 230 },
-  { id: 4, name: "Album Sales Commission", price: "25%", sales: 30 },
+  { id: 2, name: "Photos", price: "15%", sales: 3000 },
+  { id: 3, name: "Videos", price: "20%", sales: 230 },
+  { id: 4, name: "Album", price: "25%", sales: 30 },
 ];
 
 const monthlyData = [
