@@ -22,8 +22,7 @@ export interface Transaction {
   fecha: Date;
   estado: string;
   ubicacion_usuario: string;
-  ubicacion: string;
-  // Permitir que sea nulo
+  ubicacion: string | null; // Permitir que sea nulo
 }
 
 export default function TransactionList({
