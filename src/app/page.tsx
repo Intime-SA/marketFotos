@@ -3,7 +3,6 @@ import { Camera, Users, DollarSign, Waves } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
-import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
