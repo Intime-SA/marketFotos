@@ -4,7 +4,7 @@
 import { createPayment as createPaymentInDB } from "@/src/lib/dataTransactions";
 import { PaymentCheckout } from "@/src/lib/definitions";
 import { getPayments } from "@/src/lib/dataTransactions";
-import { Payment } from "@/src/lib/definitions";
+import { Payment } from "@/src/lib/dataTransactions";
 
 export async function fetchTransactions(): Promise<{ payments: Payment[] }> {
   try {
