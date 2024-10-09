@@ -1,6 +1,7 @@
 import { PaymentCheckout } from "./definitions";
 import { db } from "./firebaseConfig";
 import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
+import { revalidatePath } from "next/cache";
 
 export type DocumentItem = {
   comision: string;
@@ -71,6 +72,8 @@ export async function createPayment(
   };
 
   const docRef = await addDoc(collection(db, "payments"), paymentWithExtras);
+
+  revalidatePath("/dashboard/transactions");
 
   return {
     id: docRef.id,
