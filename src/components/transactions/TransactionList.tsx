@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/ui/table";
-import { Payment } from "@/src/lib/definitions";
+import { Payment } from "@/src/lib/dataTransactions";
 import { formatDate } from "@/src/lib/utils";
 import Link from "next/link";
 import {
