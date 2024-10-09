@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { Camera, Users, DollarSign, Waves } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
 
