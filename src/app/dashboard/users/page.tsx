@@ -1,5 +1,9 @@
-import { getUsers, getUserTypeDistribution, getUserGrowth } from "@/lib/data";
-import SuperAdminUsersClient from "@/components/users/usersList";
+import {
+  getUsers,
+  getUserTypeDistribution,
+  getUserGrowth,
+} from "@/src/lib/data";
+import SuperAdminUsersClient from "@/src/components/users/usersList";
 
 export default async function SuperAdminUsers() {
   const users = await getUsers();

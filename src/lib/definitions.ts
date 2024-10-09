@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface User {
   id: string;
   apellido: string;
@@ -53,4 +55,24 @@ export type NewProduct = {
   title: string;
   comision: string;
   monto: number;
+};
+
+export type DocumentItem = {
+  comision: string;
+  montoComision: string;
+  type: string;
+  ubicacion: string;
+  unit_price: number;
+  url: string;
+};
+
+export type Payment = {
+  date_pay: Timestamp;
+  documents: DocumentItem[];
+  id: string;
+  id_comprador: string;
+  id_fotografo: string;
+  id_payment: string;
+  status: string;
+  total: number;
 };

@@ -9,7 +9,12 @@ import {
   UserPlus,
   Repeat,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
 import {
   AreaChart,
   Area,

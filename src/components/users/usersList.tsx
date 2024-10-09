@@ -2,10 +2,19 @@
 
 import React, { useState } from "react";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
 import {
   Table,
   TableBody,
@@ -13,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 import {
   PieChart,
   Pie,

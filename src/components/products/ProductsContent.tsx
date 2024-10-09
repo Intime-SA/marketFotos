@@ -2,10 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
 import {
   Table,
   TableBody,
@@ -13,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/src/components/ui/table";
 import {
   BarChart,
   Bar,
@@ -30,11 +39,11 @@ import {
   deleteProduct,
   getProducts,
   updateProduct,
-} from "@/lib/dataProducts";
+} from "@/src/lib/dataProducts";
 import { AddProductModal } from "./AddProductModal";
-import { NewProduct, Product } from "@/lib/definitions";
-import { formatToUSD } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
+import { NewProduct, Product } from "@/src/lib/definitions";
+import { formatToUSD } from "@/src/lib/utils";
+import { toast } from "@/src/hooks/use-toast";
 
 const monthlyData = [
   { month: "Jan", photos: 500, videos: 150, albums: 20, subscriptions: 100 },

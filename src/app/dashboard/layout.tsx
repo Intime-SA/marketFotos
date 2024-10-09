@@ -17,9 +17,13 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 import { montserrat } from "../fonts/fonts";
 
 const sidebarItems = [
