@@ -1,9 +1,11 @@
+import { PaymentCheckout } from "./definitions";
 import { db } from "./firebaseConfig";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 
 export type DocumentItem = {
   comision: string;
-  montoComision: string;
+  document_id: string;
+  montoComision: number;
   type: string;
   ubicacion: string;
   unit_price: number;
@@ -45,4 +47,33 @@ export async function getPayments(): Promise<Payment[]> {
     } as Payment;
   });
   return paymentList;
+}
+
+export async function createPayment(
+  paymentData: Omit<PaymentCheckout, "id">
+): Promise<PaymentCheckout> {
+  const now = Timestamp.now();
+
+  const paymentWithExtras = {
+    ...paymentData,
+    date_pay: now,
+    documents: [
+      {
+        comision: "porcentaje",
+        document_id: "qDAXwCiUyTHhWORfGxG0",
+        montoComision: 20,
+        type: "photo",
+        ubicacion: "BryonBay",
+        unit_price: 10,
+        url: "https://media.istockphoto.com/id/143918363/es/foto/pie-alto.jpg?s=612x612&w=0&k=20&c=RChPH41W9XygEkKgOo9rYxN_qV13YF4q6oiSGM94MWs=",
+      },
+    ],
+  };
+
+  const docRef = await addDoc(collection(db, "payments"), paymentWithExtras);
+
+  return {
+    id: docRef.id,
+    ...paymentWithExtras,
+  };
 }

@@ -76,3 +76,14 @@ export type Payment = {
   status: string;
   total: number;
 };
+
+// src/lib/definitions.ts
+export interface PaymentCheckout {
+  id: string;
+  id_payment: string;
+  id_comprador: string;
+  id_fotografo: string;
+  total: number;
+  status: string;
+  numberOrder: string;
+}

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Camera, Eye, EyeOff, User } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import {
   Table,
@@ -14,6 +14,13 @@ import {
 } from "@/src/components/ui/table";
 import { Payment } from "@/src/lib/definitions";
 import { formatDate } from "@/src/lib/utils";
+import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/src/components/ui/tooltip";
 
 interface TransactionListProps {
   initialPayments: Payment[];
@@ -48,13 +55,22 @@ export default function TransactionList({
           <TableHeader>
             <TableRow>
               <TableHead>Date</TableHead>
-              <TableHead>Type</TableHead>
+              <TableHead>Cantidad</TableHead>
               <TableHead>Location</TableHead>
               <TableHead>Price</TableHead>
               <TableHead>Commission</TableHead>
               <TableHead>Total</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Payment ID</TableHead>
+              <TableHead
+                style={{
+                  display: "flex",
+                  justifyContent: "left",
+                  alignItems: "center",
+                }}
+              >
+                Payment ID
+              </TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -68,7 +84,7 @@ export default function TransactionList({
               payments.map((payment) => (
                 <TableRow key={payment.id}>
                   <TableCell>{formatDate(payment.date_pay)}</TableCell>
-                  <TableCell>{payment.documents[0].type}</TableCell>
+                  <TableCell>{payment.documents.length}</TableCell>
                   <TableCell>{payment.documents[0].ubicacion}</TableCell>
                   <TableCell>
                     ${payment.documents[0].unit_price.toFixed(2)}
@@ -91,22 +107,52 @@ export default function TransactionList({
                     </span>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => togglePaymentIdVisibility(payment.id)}
-                        className="p-1"
-                      >
-                        {visiblePaymentIds[payment.id] ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                      {visiblePaymentIds[payment.id] && (
-                        <span className="ml-2">{payment.id_payment}</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => togglePaymentIdVisibility(payment.id)}
+                      className="p-1"
+                    >
+                      {visiblePaymentIds[payment.id] ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
                       )}
+                    </Button>
+                    {visiblePaymentIds[payment.id] && (
+                      <span className="ml-2">{payment.id_payment}</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link href={`user/${payment.id_comprador}`}>
+                              <Button variant="ghost" size="sm" className="p-1">
+                                <User className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Ver perfil del comprador</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link href={`user/${payment.id_fotografo}`}>
+                              <Button variant="ghost" size="sm" className="p-1">
+                                <Camera className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Ver perfil del fotógrafo</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                   </TableCell>
                 </TableRow>
