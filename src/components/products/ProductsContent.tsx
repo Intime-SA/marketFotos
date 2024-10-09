@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,18 +25,16 @@ import {
   LineChart,
   Line,
 } from "recharts";
-
-const productData = [
-  {
-    id: 1,
-    name: "Total Access Subscription",
-    price: "$19.99/month",
-    sales: 170,
-  },
-  { id: 2, name: "Photos", price: "15%", sales: 3000 },
-  { id: 3, name: "Videos", price: "20%", sales: 230 },
-  { id: 4, name: "Album", price: "25%", sales: 30 },
-];
+import {
+  addProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "@/lib/dataProducts";
+import { AddProductModal } from "./AddProductModal";
+import { NewProduct, Product } from "@/lib/definitions";
+import { formatToUSD } from "@/lib/utils";
+import { toast } from "@/hooks/use-toast";
 
 const monthlyData = [
   { month: "Jan", photos: 500, videos: 150, albums: 20, subscriptions: 100 },
@@ -54,6 +52,85 @@ const monthlyData = [
 ];
 
 export function ProductsContent() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState<Product | null>(null);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const productData = await getProducts();
+        setProducts(productData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch products. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  const handleAddOrUpdateProduct = async (product: NewProduct | Product) => {
+    try {
+      if ("id" in product) {
+        // Update existing product
+        await updateProduct(product);
+        setProducts(products.map((p) => (p.id === product.id ? product : p)));
+        toast({
+          title: "Success",
+          description: "Product updated successfully.",
+        });
+      } else {
+        // Add new product
+        const addedProduct = await addProduct(product);
+        setProducts([...products, addedProduct]);
+        toast({
+          title: "Success",
+          description: "Product added successfully.",
+        });
+      }
+      setIsModalOpen(false);
+      setProductToEdit(null);
+    } catch (error) {
+      console.error("Error adding/updating product:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add/update product. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      await deleteProduct(id);
+      setProducts(products.filter((product) => product.id !== id));
+      toast({
+        title: "Success",
+        description: "Product deleted successfully.",
+      });
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete product. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setProductToEdit(product);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="p-4 sm:p-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
@@ -67,7 +144,13 @@ export function ProductsContent() {
               className="pl-8 bg-white border-gray-200 w-full"
             />
           </div>
-          <Button className="bg-purple-500 hover:bg-purple-600 text-white w-full sm:w-auto">
+          <Button
+            className="bg-purple-500 hover:bg-purple-600 text-white w-full sm:w-auto"
+            onClick={() => {
+              setProductToEdit(null);
+              setIsModalOpen(true);
+            }}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Add Product
           </Button>
@@ -102,34 +185,58 @@ export function ProductsContent() {
                     <TableHead className="w-[40%] sm:w-[25%]">
                       Price/Commission
                     </TableHead>
-                    <TableHead className="hidden sm:table-cell sm:w-[25%]">
-                      Last Month Sales
-                    </TableHead>
                     <TableHead className="w-[20%]">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {productData.map((product) => (
-                    <TableRow key={product.id}>
-                      <TableCell className="font-medium">
-                        {product.name}
-                      </TableCell>
-                      <TableCell>{product.price}</TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        {product.sales}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm" className="p-1">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" className="p-1">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={4} className="text-center">
+                        Loading...
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : products.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={4} className="text-center">
+                        No products found.
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    products.map((product) => (
+                      <TableRow key={product.id}>
+                        <TableCell className="font-medium">
+                          {product.title}
+                        </TableCell>
+                        <TableCell>
+                          {product.comision === "porcentaje" ? (
+                            <div>{product.monto}%</div>
+                          ) : (
+                            <div>{formatToUSD(product.monto)} USD</div>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-1"
+                              onClick={() => handleEditProduct(product)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-1"
+                              onClick={() => handleDeleteProduct(product.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </div>
@@ -145,12 +252,12 @@ export function ProductsContent() {
           <CardContent>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={productData}>
+                <BarChart data={products}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
+                  <XAxis dataKey="title" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="sales" fill="#8884d8" />
+                  <Bar dataKey="monto" fill="#8884d8" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -188,6 +295,16 @@ export function ProductsContent() {
           </CardContent>
         </Card>
       </div>
+
+      <AddProductModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setProductToEdit(null);
+        }}
+        onAddProduct={handleAddOrUpdateProduct}
+        productToEdit={productToEdit}
+      />
     </div>
   );
 }

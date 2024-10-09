@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { EstadoPago } from "@prisma/client";
 
 // components/transactions/transactionList.ts
 export interface Transaction {
@@ -20,7 +21,7 @@ export interface Transaction {
   comprador: string;
   monto: number;
   fecha: Date;
-  estado: string;
+  estado: EstadoPago;
   ubicacion_usuario: string;
   ubicacion: string | null; // Permitir que sea nulo
 }
