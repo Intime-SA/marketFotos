@@ -76,3 +76,19 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* TESTEO FUENTES NUEVAS PEPITAH */
+
+@font-face {
+  font-family: 'TAN Harmoni';
+  src: url('/fonts/Harmoni.ttf') format('.ttf'); /* Cambia a .ttf si usas ese formato */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TAN Harmoni';
+  src: url('/fonts/Harmoni.ttf') format('.ttf'); /* Cambia a .ttf si usas ese formato */
+  font-weight: bold;
+  font-style: normal;
+}

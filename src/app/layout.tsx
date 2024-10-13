@@ -13,6 +13,11 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const harmoni = localFont({
+  src: './fonts/Harmoni.ttf',
+  variable: "--font-harmoni",
+  weight: "100 900",
+})
 
 export const metadata: Metadata = {
   title: "Gowave - dashboard",
@@ -27,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${harmoni.variable} antialiased`}
       >
         {children}
         <Toaster />

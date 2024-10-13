@@ -1,3 +1,4 @@
+
 // app/checkout/[id_comprador]/[id_fotografo]/[total]/[id_payment]/[status]/[numberOrder]/page.tsx
 import { Suspense } from "react";
 import CheckoutForm from "@/src/components/checkout/CheckoutForm";
@@ -14,11 +15,10 @@ export default function CheckoutPage({
     numberOrder: string;
   };
 }) {
-  const { id_comprador, id_fotografo, total, id_payment, status, numberOrder } =
-    params;
+  const { id_comprador, id_fotografo, total, id_payment, status, numberOrder } = params;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Cargando...</div>}>
       <CheckoutForm
         id_comprador={id_comprador}
         id_fotografo={id_fotografo}

@@ -1,16 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../lib/firebaseConfig";
 import { Search, Bell, Menu } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
 
 interface NavbarProps {
-  onMenuClick?: () => void; // Haciendo onMenuClick opcional
+  onMenuClick?: () => void;
 }
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
+  const [logoUrl, setLogoUrl] = useState<string>("");
+
+  // Obtener la URL del logo desde Firestore cuando el componente se monta
+  useEffect(() => {
+    const fetchLogo = async () => {
+      const docRef = doc(db, "internal", "G7qOe4LLmqjQzOzYfiZa"); // Asegúrate de que este sea el path correcto
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setLogoUrl(docSnap.data().url); // Asume que tienes un campo 'url' con la URL del logo
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchLogo();
+  }, []);
+
   return (
     <header className="bg-white shadow-sm lg:static lg:overflow-y-visible">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,12 +41,16 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             <div className="flex-shrink-0 flex items-center">
               <button
                 className="lg:hidden -ml-2 mr-2 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900"
-                onClick={onMenuClick} // Esta línea ahora es segura
+                onClick={onMenuClick}
               >
                 <span className="sr-only">Open sidebar</span>
                 <Menu className="h-6 w-6" />
               </button>
-              <h1 className="text-2xl font-semibold font-sans text-gray-900">
+              {/* Agregar logo 
+              {logoUrl && (
+                <img src={logoUrl} alt="Logo" className="h-10 mr-2" />
+              )}*/}
+              <h1 className="text-3xl font-semibold font-harmoni text-gray-900 mt-2">
                 GoWave
               </h1>
             </div>

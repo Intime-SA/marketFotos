@@ -1,42 +1,69 @@
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { PaymentCheckout } from "@/src/lib/definitions";
-import Navbar from "../navbar/navbar";
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from "@/src/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card"
+import Navbar from '../navbar/navbar'
+
+interface CheckoutConfirmationProps {
+  id_payment: string;
+  total: number;
+  id_photographer: string;
+  orderNumber: string;
+}
 
 export default function CheckoutConfirmation({
-  payment,
-}: {
-  payment: PaymentCheckout;
-}) {
-  const router = useRouter();
+  id_payment,
+  total,
+  id_photographer,
+  orderNumber
+}: CheckoutConfirmationProps) {
+  const router = useRouter()
+  const [timeLeft, setTimeLeft] = useState(5)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push("/dashboard/transactions");
-    }, 5000);
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer)
+          router.push('/dashboard/transactions')
+        }
+        return prevTime - 1
+      })
+    }, 1000)
 
-    return () => clearTimeout(timer);
-  }, [router]);
+    return () => clearInterval(timer)
+  }, [router])
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-100 to-blue-200">
-      {/* Agregar el Navbar aquí */}
-      <Navbar />
-
-      <div className="flex flex-col items-center justify-center flex-grow">
-        <div className="bg-white p-10 rounded-lg shadow-lg max-w-md mx-auto mt-10 text-center">
-          <h1 className="text-3xl font-bold font-sans mb-4">¡Pago Confirmado!</h1>
-          <p className="mb-2 font-sans">Número de Orden: {payment.numberOrder}</p>
-          <p className="mb-2 font-sans">ID de Pago: {payment.id_payment}</p>
-          <p className="mb-2 font-sans">Total: ${payment.total.toFixed(2)}</p>
-          <p className="mb-4 font-sans">Estado: {payment.status}</p>
-          <p className="text-sm text-gray-600">
-            Serás redirigido a la página de transacciones en 5 segundos...
-          </p>
-        </div>
+    <div className="min-h-screen flex flex-col bg-gray-50 relative">
+      <Navbar onMenuClick={() => console.log('Menu clicked')} />
+      <div className="flex-grow flex items-center justify-center">
+        <Card className="w-[350px] shadow-md">
+          <CardHeader className="bg-green-500 text-white">
+            <CardTitle className="text-xl font-semibold">Purchase Confirmed</CardTitle>
+            <CardDescription className="text-green-100">Your surf photo is ready!</CardDescription>
+          </CardHeader>
+          <CardContent className="mt-4 space-y-2">
+            <p className="text-sm text-gray-600">Payment ID: {id_payment}</p>
+            <p className="text-sm text-gray-600">Total: ${total.toFixed(2)}</p>
+            <p className="text-sm text-gray-600">Photographer ID: {id_photographer}</p>
+            <p className="text-sm text-gray-600">Order Number: {orderNumber}</p>
+            <p className="mt-4 text-sm font-medium text-green-600">
+              Redirecting in {timeLeft} seconds...
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button 
+              onClick={() => router.push('/dashboard/transactions')}
+              className="w-full bg-green-500 text-white hover:bg-green-600"
+            >
+              View My Purchases
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     </div>
-  );
+  )
 }
