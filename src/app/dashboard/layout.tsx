@@ -155,8 +155,8 @@ export default function DashboardLayout({
                     <span className="sr-only">Open sidebar</span>
                     <Menu className="h-6 w-6" />
                   </button>
-                  <h1 className="text-2xl font-semibold text-gray-900">
-                    GOwave
+                  <h1 className="text-3xl font-semibold font-harmoni text-gray-900 mt-2">
+                    GoWave
                   </h1>
                 </div>
               </div>

@@ -35,7 +35,7 @@ export default function Home() {
     >
       <main className="max-w-4xl mx-auto text-center">
         <div className="mb-16">
-          <h1 className="text-7xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+          <h1 className="text-7xl font-harmoni text-blue-600 dark:text-blue-400 mb-4">
             GOwave
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
