@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../lib/firebaseConfig";
 import { Search, Bell, Menu } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
@@ -14,32 +12,20 @@ import {
 
 interface NavbarProps {
   onMenuClick?: () => void;
+  className?: string;
 }
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
   const [logoUrl, setLogoUrl] = useState<string>("");
 
-  // Obtener la URL del logo desde Firestore cuando el componente se monta
   useEffect(() => {
-    const fetchLogo = async () => {
-      const docRef = doc(db, "internal", "G7qOe4LLmqjQzOzYfiZa"); // Asegúrate de que este sea el path correcto
-      const docSnap = await getDoc(docRef);
-      console.log(logoUrl);
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setLogoUrl(docSnap.data().url); // Asume que tienes un campo 'url' con la URL del logo
-      } else {
-        console.log("No such document!");
-      }
-    };
-
-    fetchLogo();
+    const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/gowave-e46ce.appspot.com/o/GoWaveLogo.png?alt=media&token=e7a32c10-d7fb-43ce-aed6-f2416760fccf";
+    setLogoUrl(LOGO_URL);
   }, []);
 
   return (
-    <header className="bg-white shadow-sm lg:static lg:overflow-y-visible">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-white shadow-sm lg:static lg:overflow-y-visible z-10">
+      <div className="max-w-7xl mx-auto px-0">
         <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
           {/* Logo and Menu */}
           <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
@@ -51,11 +37,11 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
                 <span className="sr-only">Open sidebar</span>
                 <Menu className="h-6 w-6" />
               </button>
-              {/* Agregar logo 
+              {/* Agregar logo*/} 
               {logoUrl && (
-                <img src={logoUrl} alt="Logo" className="h-10 mr-2" />
-              )}*/}
-              <h1 className="text-3xl font-semibold font-harmoni text-gray-900 mt-2">
+                <img src={logoUrl} alt="Logo" className="h-12 mr-4" />
+              )}
+              <h1 className="text-3xl font-semibold font-harmoni text-[#22344E] mt-2 ml-2">
                 GoWave
               </h1>
             </div>
@@ -86,7 +72,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 
           {/* Console Button and Notifications */}
           <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
-            <Button className="bg-purple-500 hover:bg-purple-600 text-white mr-4">
+            <Button className="bg-[#22344E] hover:bg-[#4B6B8A] text-white mr-4">
               Console
             </Button>
             <Button variant="ghost" className="relative mr-4">
