@@ -6,7 +6,11 @@ import { db } from "../../lib/firebaseConfig";
 import { Search, Bell, Menu } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 
 interface NavbarProps {
   onMenuClick?: () => void;
@@ -20,6 +24,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
     const fetchLogo = async () => {
       const docRef = doc(db, "internal", "G7qOe4LLmqjQzOzYfiZa"); // Asegúrate de que este sea el path correcto
       const docSnap = await getDoc(docRef);
+      console.log(logoUrl);
 
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
