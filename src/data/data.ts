@@ -1,6 +1,6 @@
 import { cache } from "react";
-import { User, UserData } from "./definitions";
-import { db } from "./firebaseConfig"; // Asumiendo que tienes Firebase inicializado en este archivo
+import { User, UserData } from "../domain/entitys/definitions";
+import { db } from "../lib/firebaseConfig"; // Asumiendo que tienes Firebase inicializado en este archivo
 import {
   collection,
   doc,

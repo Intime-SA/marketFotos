@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "../components/ui/toaster";
+import { ReduxProvider } from "../components/redux/ReduxProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -14,10 +15,10 @@ const geistMono = localFont({
   weight: "100 900",
 });
 const harmoni = localFont({
-  src: './fonts/Harmoni.ttf',
+  src: "./fonts/Harmoni.ttf",
   variable: "--font-harmoni",
   weight: "100 900",
-})
+});
 
 export const metadata: Metadata = {
   title: "Gowave - dashboard",
@@ -34,8 +35,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${harmoni.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <ReduxProvider>
+          {children}
+          <Toaster />
+        </ReduxProvider>
       </body>
     </html>
   );

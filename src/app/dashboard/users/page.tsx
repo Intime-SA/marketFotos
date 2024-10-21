@@ -2,7 +2,7 @@ import {
   getUsers,
   getUserTypeDistribution,
   getUserGrowth,
-} from "@/src/lib/data";
+} from "@/src/data/data";
 import SuperAdminUsersClient from "@/src/components/users/usersList";
 
 export default async function SuperAdminUsers() {

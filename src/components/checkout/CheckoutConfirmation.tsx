@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/src/components/ui/card";
 import Navbar from "../navbar/navbar";
-import { PaymentCheckout } from "@/src/lib/definitions";
+import { PaymentCheckout } from "@/src/domain/entitys/definitions";
 
 export default function CheckoutConfirmation({
   payment,

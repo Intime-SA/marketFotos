@@ -1,4 +1,4 @@
-import { getUserData } from "@/src/lib/data";
+import { getUserData } from "@/src/data/data";
 import { notFound } from "next/navigation";
 import {
   Card,

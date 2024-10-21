@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { Product, NewProduct } from "@/src/lib/definitions";
+import { Product, NewProduct } from "@/src/domain/entitys/definitions";
 
 type AddProductModalProps = {
   isOpen: boolean;

@@ -1,32 +1,10 @@
-import React, { ReactElement } from "react";
-import { Camera, Users, DollarSign, Waves } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
-import Link from "next/link";
+"use client";
+
+import React from "react";
 import { Montserrat } from "next/font/google";
+import AdminLoginForm from "@/src/components/login/AdminLoginForm";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
-
-interface FeatureCardProps {
-  icon: ReactElement;
-  title: string;
-  description: string;
-}
-
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
-  return (
-    <div className="text-left">
-      <div className="flex items-center mb-2">
-        {React.cloneElement(icon, {
-          className: "w-6 h-6 mr-2 text-gray-800 dark:text-gray-200",
-        })}
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-          {title}
-        </h2>
-      </div>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
-    </div>
-  );
-}
 
 export default function Home() {
   return (
@@ -39,38 +17,11 @@ export default function Home() {
             GOwave
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Connecting Surfers with Epic Moments
+            Admin Login
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          <FeatureCard
-            icon={<Camera className="w-8 h-8" />}
-            title="Surf Photography"
-            description="High-quality surf photos from global talents."
-          />
-          <FeatureCard
-            icon={<Users className="w-8 h-8" />}
-            title="Community"
-            description="Connect with surf enthusiasts and photographers."
-          />
-          <FeatureCard
-            icon={<DollarSign className="w-8 h-8" />}
-            title="Fair Compensation"
-            description="Support photographers through transparent pricing."
-          />
-          <FeatureCard
-            icon={<Waves className="w-8 h-8" />}
-            title="Discover Spots"
-            description="Explore surf locations through local lenses."
-          />
-        </div>
-
-        <Link href="/dashboard">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-300">
-            Explore
-          </Button>
-        </Link>
+        <AdminLoginForm />
       </main>
 
       <footer className="mt-16 text-center text-gray-400 dark:text-gray-600">

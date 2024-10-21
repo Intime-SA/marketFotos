@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart3,
   Package,
@@ -25,7 +25,11 @@ import {
   AvatarImage,
 } from "@/src/components/ui/avatar";
 import { montserrat } from "../fonts/fonts";
-
+import { useAppDispatch } from "@/src/redux/store/hooks";
+import { useToast } from "@/src/hooks/use-toast";
+import { clearUser } from "@/src/redux/slices/userSlice";
+import { AuthUseCase } from "@/src/useCases/AuthUseCase";
+import { FirebaseAuthRepository } from "@/src/data/authRepository";
 const sidebarItems = [
   { icon: BarChart3, label: "Dashboard", href: "/dashboard" },
   { icon: Package, label: "Products", href: "/dashboard/products" },
@@ -39,6 +43,8 @@ const sidebarItems = [
   { icon: PieChart, label: "Statistics", href: "/dashboard/statistics" },
 ];
 
+const authUseCase = new AuthUseCase(new FirebaseAuthRepository());
+
 export default function DashboardLayout({
   children,
 }: {
@@ -46,6 +52,28 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await authUseCase.signOut();
+      dispatch(clearUser());
+      toast({
+        title: "Logout successful",
+        description: "You have been logged out successfully.",
+      });
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast({
+        title: "Logout failed",
+        description: "An error occurred during logout. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className={`flex h-screen bg-gray-100 ${montserrat.className}`}>
@@ -89,7 +117,11 @@ export default function DashboardLayout({
               <Settings className="mr-2 h-4 w-4" />
               Settings
             </Button>
-            <Button variant="ghost" className="w-full justify-start mb-2">
+            <Button
+              variant="ghost"
+              className="w-full justify-start mb-2"
+              onClick={handleLogout}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </Button>
@@ -132,7 +164,11 @@ export default function DashboardLayout({
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
               </Button>
-              <Button variant="ghost" className="w-full justify-start mb-2">
+              <Button
+                variant="ghost"
+                className="w-full justify-start mb-2"
+                onClick={handleLogout}
+              >
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
               </Button>

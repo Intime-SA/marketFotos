@@ -1,5 +1,5 @@
-import { PaymentCheckout } from "./definitions";
-import { db } from "./firebaseConfig";
+import { PaymentCheckout } from "../domain/entitys/definitions";
+import { db } from "../lib/firebaseConfig";
 import { addDoc, collection, getDocs, Timestamp } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 

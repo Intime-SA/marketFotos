@@ -1,10 +1,10 @@
 // app/actions.ts
 "use server";
 
-import { createPayment as createPaymentInDB } from "@/src/lib/dataTransactions";
-import { PaymentCheckout } from "@/src/lib/definitions";
-import { getPayments } from "@/src/lib/dataTransactions";
-import { Payment } from "@/src/lib/dataTransactions";
+import { createPayment as createPaymentInDB } from "@/src/data/dataTransactions";
+import { PaymentCheckout } from "@/src/domain/entitys/definitions";
+import { getPayments } from "@/src/data/dataTransactions";
+import { Payment } from "@/src/data/dataTransactions";
 
 export async function fetchTransactions(): Promise<{ payments: Payment[] }> {
   try {

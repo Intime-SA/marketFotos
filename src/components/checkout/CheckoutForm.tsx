@@ -12,7 +12,7 @@ import {
 } from "@/src/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/src/components/ui/alert";
 import Navbar from "../navbar/navbar";
-import { PaymentCheckout } from "@/src/lib/definitions";
+import { PaymentCheckout } from "@/src/domain/entitys/definitions";
 import CheckoutConfirmation from "./CheckoutConfirmation";
 import { createPayment } from "@/src/app/actions/actions";
 

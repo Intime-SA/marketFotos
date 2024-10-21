@@ -39,9 +39,9 @@ import {
   deleteProduct,
   getProducts,
   updateProduct,
-} from "@/src/lib/dataProducts";
+} from "@/src/data/dataProducts";
 import { AddProductModal } from "./AddProductModal";
-import { NewProduct, Product } from "@/src/lib/definitions";
+import { NewProduct, Product } from "@/src/domain/entitys/definitions";
 import { formatToUSD } from "@/src/lib/utils";
 import { toast } from "@/src/hooks/use-toast";
 

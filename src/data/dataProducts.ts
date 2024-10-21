@@ -1,5 +1,5 @@
-import { NewProduct, Product } from "./definitions";
-import { db } from "./firebaseConfig";
+import { NewProduct, Product } from "../domain/entitys/definitions";
+import { db } from "../lib/firebaseConfig";
 import {
   collection,
   deleteDoc,

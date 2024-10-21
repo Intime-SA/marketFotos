@@ -6,7 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
+import { RootState } from "@/src/redux/store/store";
 import { DollarSign, Users, ShoppingCart, Bell } from "lucide-react";
+import { useSelector } from "react-redux";
 import {
   LineChart,
   Line,
@@ -30,6 +32,9 @@ const registeredUsersData = [
 ];
 
 export function DashboardContent() {
+  const userLoged = useSelector((state: RootState) => state.user);
+  console.log("is autenticate? ", userLoged.isAuthenticated);
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-8">Dashboard Overview</h1>

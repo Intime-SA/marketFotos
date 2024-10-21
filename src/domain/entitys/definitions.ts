@@ -87,3 +87,20 @@ export interface PaymentCheckout {
   status: string;
   numberOrder: string;
 }
+
+export interface IUser {
+  id: string;
+  email: string;
+  nombre: string | null;
+  tipo_usuario: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface IAuthRepository {
+  signIn(email: string, password: string): Promise<IUser>;
+  signOut(): Promise<void>;
+  getCurrentUser(): Promise<IUser | null>;
+  getUserByEmail(email: string): Promise<IUser | null>;
+}
