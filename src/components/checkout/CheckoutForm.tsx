@@ -15,6 +15,7 @@ import Navbar from "../navbar/navbar";
 import { PaymentCheckout } from "@/src/domain/entitys/definitions";
 import CheckoutConfirmation from "./CheckoutConfirmation";
 import { createPayment } from "@/src/app/actions/actions";
+import { Inter } from "next/font/google";
 
 interface CheckoutFormProps {
   id_comprador: string;
@@ -24,6 +25,10 @@ interface CheckoutFormProps {
   status: string;
   numberOrder: string;
 }
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '700'], // Configura los pesos que necesites
+});
 
 export default function CheckoutForm({
   id_comprador,
@@ -70,32 +75,42 @@ export default function CheckoutForm({
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 relative">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Fondo con GIF */}
+      <div
+        className="absolute inset-0 bg-cover bg-center z-0"
+        style={{
+          backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/gowave-e46ce.appspot.com/o/oceanAnimation.gif?alt=media&token=2e9903e1-9d66-4363-bf9b-51372c877bd3")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
       <Navbar onMenuClick={() => console.log("Menu clicked")} />
-      <div className="flex-grow flex items-center justify-center">
-        <Card className="w-[350px] shadow-md">
+      <div className="flex-grow flex items-center justify-center z-10">
+        <Card className="w-[350px] shadow-md border-none">
           <CardHeader className="bg-blue-500 text-white">
             <CardTitle className="text-4xl font-harmoni">
               Surf Photo Checkout
             </CardTitle>
-            <CardDescription className="text-blue-100 text-x1 font-harmoni">
+            <CardDescription className={`text-x1 text-blue-100 ${inter.className}`}>
               Complete your purchase
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-4 space-y-2">
-            <p className="text-lg text-gray-600 font-harmoni">
+          <CardContent className="mt-4 space-y-3">
+            <p className={`text-sm text-gray-600 ${inter.className}`}>
               Order Number: {numberOrder}
             </p>
-            <p className="text-lg text-gray-600 font-harmoni">
+            <p className={`text-sm text-gray-600 ${inter.className}`}>
               Photographer ID: {id_fotografo}
             </p>
-            <p className="text-lg text-gray-600 font-harmoni">
+            <p className={`text-sm text-gray-600 ${inter.className}`}>
               Payment ID: {id_payment}
             </p>
-            <p className="text-lg text-gray-600 font-harmoni">
+            <p className={`text-sm text-gray-600 ${inter.className}`}>
               Status: {status}
             </p>
-            <p className="text-2x1 font-semibold text-gray-800 mt-2 font-harmoni">
+            <p className={`text-2x1 text-gray-8 mt-200 ${inter.className}`}>
               Total: ${total.toFixed(2)}
             </p>
             {error && (
@@ -106,13 +121,13 @@ export default function CheckoutForm({
             )}
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button variant="outline" className="w-1/2 mr-2">
+            <Button variant="outline" className={`w-1/2 mr-2 ${inter.className} `}>
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="w-1/2 bg-blue-500 text-white hover:bg-blue-600"
+              className={`w-1/2 bg-blue-500 text-white hover:bg-blue-600 ${inter.className}`}
             >
               {isLoading ? "Processing..." : "Confirm"}
             </Button>
